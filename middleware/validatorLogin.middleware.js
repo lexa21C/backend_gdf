@@ -1,22 +1,34 @@
-// Middleware personalizado para validar la solicitud de inicio de sesión
 const { check, validationResult } = require('express-validator');
+const userModel = require('../models/Users.js');
+const ApiStructure = require('../helpers/responseApi.js');
 
-const validateLoginMiddleware = (req, res, next) => {
-    const { email, password } = req.body;
-  
-    // Verifica que se proporcionen email y password en la solicitud
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Debe proporcionar un email y una contraseña.' });
-    }
-  
-    // Verifica que no se proporcionen campos adicionales
-    const unexpectedFields = Object.keys(req.body).filter(field => field !== 'email' && field !== 'password');
-    if (unexpectedFields.length > 0) {
-      return res.status(400).json({ error: 'No se permiten campos adicionales en la solicitud.' });
-    }
+const validateLoginMiddleware = async (req, res, next) => {
+  const { email, password } = req.body;
+  const apiStructure = new ApiStructure();
 
-    // Si todo está en orden, pasa al siguiente middleware
-    next();
+  // Verifica que se proporcionen email y password en la solicitud
+  if (!email || !password) {
+    apiStructure.setStatus("Failed", 400, 'Debe proporcionar un email y una contraseña.');
+    return res.json(apiStructure.toResponse());
+  }
+
+  // Verifica que no se proporcionen campos adicionales
+  const unexpectedFields = Object.keys(req.body).filter(field => field !== 'email' && field !== 'password');
+  if (unexpectedFields.length > 0) {
+    apiStructure.setStatus("Failed", 400, 'No se permiten campos adicionales en la solicitud.');
+    return res.json(apiStructure.toResponse());
+  }
+
+  const existingUser = await userModel.findOne({ email });
+
+  if (!existingUser) {
+    apiStructure.setStatus("error", 400, "no existe el usuario2132");
+    console.log()
+    return res.status(400).json(apiStructure.toResponse());
+  }
+
+  // Si todo está en orden, pasa al siguiente middleware
+  next();
 };
 
 

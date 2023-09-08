@@ -142,8 +142,10 @@ exports.deleteArtifact = async (req, res) => {
 }
 exports.artiffactsByQuarter = async (req, res) => {
     let apiStructure = new ApiStructure()
+    console.log('fhfhhf')
     try {
         const { quarterId } = req.params
+        console.log(quarterId)
         const artiffacts = await Artiffacts.find({ quarter: quarterId }).lean()
         const QuarteByCompetence = await Quarters.findById(quarterId).lean().populate('competence')
         if (!artiffacts) {

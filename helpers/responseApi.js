@@ -11,6 +11,7 @@ class ResponseApi{
     setStatus = (code, status, message) => {
         this.structure.code = code;
         this.structure.status = status;
+        console.log(status)
         this.structure.message = message;
     }
 

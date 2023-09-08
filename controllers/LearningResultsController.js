@@ -40,10 +40,12 @@ exports.resultById = async (req, res) => {
 
 exports.CreateResults = async (req, res) => {
     let apiStructure = new ApiStructure();
+    console.log(req.body)
     let { learning_result, competence, code } = req.body;
 
         // Verificar si el código ya existe en la base de datos
         const existingResult = await Learning_results.findOne({ _id: code });
+        
 
         if (existingResult) {
             apiStructure.setStatus("Failed", 400, `El Código  Ya Existe`);

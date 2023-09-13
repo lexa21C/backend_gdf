@@ -20,10 +20,7 @@ exports.signup = async (req, res) => {
       apiStructure.setStatus("Error", 400, "no existe el usuario2132");
       console.log(apiStructure.setResult.code)
       return res.json(apiStructure.toResponse());
-      // return res.status(404).json({
-      //   status: 'error',
-      //   message: 'No existe el usuario',
-      // });
+      
     } else {
       // Verificar la contraseña proporcionada con la contraseña almacenada
       const checkPassword = await compare(password, user.password);

@@ -22,7 +22,7 @@ const validateLoginMiddleware = async (req, res, next) => {
   const existingUser = await userModel.findOne({ email });
 
   if (!existingUser) {
-    apiStructure.setStatus("error", 400, "no existe el usuario2132");
+    apiStructure.setStatus("error", 400, "no existe el usuario");
     console.log()
     return res.status(400).json(apiStructure.toResponse());
   }

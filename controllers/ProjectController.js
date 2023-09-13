@@ -77,6 +77,7 @@ exports.createProject = async (req, res) => {
     let { name, state, problem_statement, project_justification, general_objective,
         specific_objectives, scope_feasibility, project_summary, technological_research,
         glossary, date_presentation, approval_date, category, record } = req.body;
+        console.log(req.body)
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -85,7 +86,7 @@ exports.createProject = async (req, res) => {
             400,
             errors.array()
         );
-        res.json(apiEstructure.toResponse());
+        res.status(400).json(apiEstructure.toResponse());
     }
 
     try {

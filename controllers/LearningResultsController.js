@@ -73,8 +73,6 @@ exports.UpdateResults = async(req, res) => {
     let apiStructure = new ApiStructure();
     let code = req.params.code;
     let reqResult = req.body;
-    console.log('id del parametro',code )
-    console.log(reqResult._id)
     // Buscar un resultado de aprendizaje por su código
     const result = await Learning_results.findById({ _id: code })
   
@@ -87,28 +85,26 @@ exports.UpdateResults = async(req, res) => {
     }
 
     // Actualizar los datos del resultado de aprendizaje
-    // await Learning_results.findByIdAndUpdate(code, {
-    //     _id: reqResult._id,
-    //     learning_result: reqResult.learning_result,
-    //     competence: reqResult.competence
-    // },{new:true}).then(async (success) => {
-    //     apiStructure.setResult(success, "Resultado de Aprendizaje Actualizado con Éxito")
-    // }).catch((err) => {
+    await Learning_results.findByIdAndUpdate(code, {   
+         learning_result: reqResult.learning_result,
+         competence: reqResult.competence
+    }).then(async (success) => {
+        apiStructure.setResult(success, "Resultado de Aprendizaje Actualizado con Éxito")
+    }).catch((err) => {
     //     apiStructure.setStatus(
     //         "Failed",
     //         400,
     //         err._message,
     //     )
     //     return res.status(400).json(apiStructure.toResponse());
-    // })
-
-    const newData = await Learning_results.findByIdAndUpdate(code,{
-        _id: reqResult._id,
-        learning_result: reqResult.learning_result,
-        competence: reqResult.competence
     })
-    await newData.save()
-    apiStructure.setResult(success, "Resultado de Aprendizaje Actualizado con Éxito")
+
+    // const newData = await Learning_results.findByIdAndUpdate(code,{
+    //     learning_result: reqResult.learning_result,
+    //     competence: reqResult.competence
+    // })
+    // await newData.save()
+    // apiStructure.setStatus("success", 200,  "Resultado de Aprendizaje Actualizado con Éxito");
 
     res.json(apiStructure.toResponse())
 }

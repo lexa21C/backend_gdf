@@ -57,27 +57,13 @@ exports.allProjectsByRecords = async (req, res) => {
     
 };
 
-exports.validate = [
-    body('name').trim().notEmpty().withMessage('El campo "name" es obligatorio.'), 
-    body('state').trim().notEmpty().withMessage('El campo "state" es obligatorio.'),
-    body('problem_statement').trim().notEmpty().withMessage('El campo "problem_statement" es obligatorio.'),
-    body('project_justification').trim().notEmpty().withMessage('El campo "project_justification" es obligatorio.'),
-    body('general_objective').trim().notEmpty().withMessage('El campo "general_objective" es obligatorio.'),
-    body('specific_objectives').notEmpty().withMessage('El campo "specific_objectives" es obligatorio.'),
-    body('scope_feasibility').trim().notEmpty().withMessage('El campo "scope_feasibility" es obligatorio.'),
-    body('project_summary').trim().notEmpty().withMessage('El campo "project_summary" es obligatorio.'),
-    body('technological_research').trim().notEmpty().withMessage('El campo "technological_research" es obligatorio.'),
-    body('glossary').notEmpty().withMessage('El campo "glossary" es obligatorio.'),
-    body('date_presentation').trim().notEmpty().withMessage('El campo "date_presentation" es obligatorio.'),
-    body('approval_date').trim().notEmpty().withMessage('El campo "approval_date" es obligatorio.'),
-]
+
 //Crear Proyecto
 exports.createProject = async (req, res) => {
     let apiEstructure = new estructureApi();
     let { name, state, problem_statement, project_justification, general_objective,
         specific_objectives, scope_feasibility, project_summary, technological_research,
         glossary, date_presentation, approval_date, category, record } = req.body;
-        console.log(req.body)
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

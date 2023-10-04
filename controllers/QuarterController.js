@@ -82,6 +82,7 @@ exports.updataQuarter = async (req, res) => {
     const apiStructure = new ApiStructure();
     try {
         let { body } = req;
+        console.log(body)
         let { quarteId } = req.params
         await Quarter.findByIdAndUpdate(quarteId, body)
         apiStructure.setResult(body);

@@ -26,8 +26,7 @@ exports.allProjects = async (req, res) => {
 exports.allProjectsByRecords = async (req, res) => {
     let apiEstructure = new estructureApi();
 
-    let {record_id} = req.params;
-    
+    let {record_id} = req.params;  
     const results = await Project.find({ record: record_id })
     .populate({
         path: 'record',
@@ -46,7 +45,6 @@ exports.allProjectsByRecords = async (req, res) => {
         }
     })
     .populate('category');
-
 
     if (results.length > 0) {
         apiEstructure.setResult(results);

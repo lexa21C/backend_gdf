@@ -9,7 +9,8 @@ const validateLoginMiddleware = async (req, res, next) => {
   // Verifica que se proporcionen email y password en la solicitud
   if (!email || !password) {
     apiStructure.setStatus("Failed", 400, 'Debe proporcionar un email y una contraseña.');
-    return res.json(apiStructure.toResponse());
+    console.log(email,password)
+    return res.status(400).json(apiStructure.toResponse());
   }
 
   // Verifica que no se proporcionen campos adicionales

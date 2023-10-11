@@ -16,13 +16,13 @@ var Project = Schema({
     approval_date: String,
 
     category: [{
-        ref: "Categories",
         type: Schema.Types.ObjectId,
+        ref: "Categories",
     }],
 
     record: [{
+        type: Schema.Types.ObjectId,
         ref: "Records",
-        type: Schema.Types.ObjectId
     }],
 
 },{

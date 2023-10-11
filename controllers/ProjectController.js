@@ -8,7 +8,9 @@ exports.allProjects = async (req, res) => {
     let apiEstructure = new estructureApi();
 
     try {
-        const results = await Project.find({});
+        const results = await Project.find().populate('category');;
+        console.log(results)
+    
 
         if (results.length > 0) {
             apiEstructure.setResult(results);

@@ -1,3 +1,4 @@
+
 var Project = require("../models/Projects.js"); 
 var estructureApi = require("../helpers/responseApi.js");
 var Category = require("../models/Categories.js")
@@ -9,7 +10,7 @@ exports.allProjects = async (req, res) => {
 
     try {
         const results = await Project.find().populate('category');;
-        console.log(results)
+        console.log(results[3].category)
     
 
         if (results.length > 0) {
@@ -253,5 +254,29 @@ const SearchCategory = async (res, idProject, a) => {
     res.json(apiEstructure.toResponse());
 }
 
+
+// Controlador para buscar fichas y proyectos por el ID del programa
+exports.getFichasAndProjectsByProgram = async (req, res) => {
+  const programId = req.params.formationPrograms_Id;
+  console.log(programId)
+
+  try {
+    // Busca todas las fichas que tienen el mismo programa
+    const fichas = await Record.find({ formation_program: programId });
+    console.log('fichas')
+
+    // Recopila los IDs de las fichas encontradas
+    const fichaIds = fichas.map(ficha => ficha._id);
+
+    // Luego, busca todos los proyectos que están asociados a las fichas encontradas
+    const proyectos = await Project.find({ record: { $in: fichaIds } }).populate('category');
+
+    // Devuelve las fichas y proyectos encontrados
+    return res.json({  proyectos });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error en la consulta.' });
+  }
+};
 
 

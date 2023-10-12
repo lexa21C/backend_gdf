@@ -4,6 +4,7 @@ const FormationPrograms = require('../controllers/FormationProgramController.js'
 
 
 //* Programas de Formación 
+router.get('/formation_programs', FormationPrograms.allFormationProgram)
 router.get('/formation_programs/:user_id', FormationPrograms.allFormationProgramIdUser)
 router.get('/formation_programs/show/:id_formation_programs', FormationPrograms.formation_programsbyid)
 router.post('/formation_programs', FormationPrograms.createFormstionPrograms)

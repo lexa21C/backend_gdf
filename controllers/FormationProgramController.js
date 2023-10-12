@@ -3,6 +3,25 @@ const estructuraApi = require('../helpers/responseApi.js');
 const Competence = require('../models/Competence.js')
 const User = require('../models/Users.js')
 var Level=require("../models/Program_levels.js")
+exports.allFormationProgram = async (req, res) => {
+    let apiEstructure = new estructuraApi();
+
+    try {
+        // Utiliza una proyección para seleccionar solo los campos que deseas (id y program_name)
+        const results = await Formation_programs.find({}, 'id program_name');
+
+        if (results.length > 0) {
+            apiEstructure.setResult(results);
+        } else {
+            apiEstructure.setStatus(404, "No existen programas de formación");
+        }
+    } catch (error) {
+        console.log(error);
+        apiEstructure.setStatus(500, "Error en el servidor");
+    }
+
+    res.json(apiEstructure.toResponse());
+}
 
 exports.allFormationProgramIdUser = async (req, res) => {
     let apiEstructure = new estructuraApi();

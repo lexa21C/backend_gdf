@@ -14,5 +14,6 @@ router.get('/project/show/:id_project', ProjectController.projectById);
 router.put('/project/:id_project', ProjectController.updateProjects);
 router.delete('/project/:id_project', ProjectController.deleteProject);
 router.post('/projects_search', ProjectController.searchProject);
+router.get('/projects/:formationPrograms_Id',ProjectController.getFichasAndProjectsByProgram);
 
 module.exports = router;
